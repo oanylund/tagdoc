@@ -1,7 +1,7 @@
 {
   "name": "tagdoc",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://oanylund.github.io/tagdoc",
   "dependencies": {
     "left-expand-pattern-parser": "1.0.0",
     "react": "^16.2.0",
