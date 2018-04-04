@@ -39,13 +39,8 @@ class PatternInput extends Component {
         <TextInput
           label="Description"
           placeholder="Write description here..."
-          expandOnFocus
         />
-        <TextInput
-          label="Pattern"
-          placeholder="Write pattern here..."
-          expandOnFocus
-        />
+        <TextInput label="Pattern" placeholder="Write pattern here..." />
         <Menu>
           <MenuBtn>Delete</MenuBtn>
           <MenuBtn>Open in playground</MenuBtn>
