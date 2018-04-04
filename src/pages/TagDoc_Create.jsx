@@ -9,7 +9,7 @@ const Container = styled.div`
   grid-gap: 20px;
   grid-template-columns: 5% 1fr 1fr 5%;
   grid-template-rows: auto auto;
-  grid-template-areas: "h h h h" "a b c d";
+  grid-template-areas: "h h h h" "w left right e";
 `;
 
 const Header = styled.div`
@@ -22,11 +22,11 @@ const Header = styled.div`
 `;
 
 const LeftContent = styled.div`
-  grid-area: b;
+  grid-area: left;
 `;
 
 const RightContent = styled.div`
-  grid-area: c;
+  grid-area: right;
 `;
 
 const TagDocTitle = Title.extend`
