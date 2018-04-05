@@ -34,12 +34,16 @@ export const createTagPattern = () =>
 
 export const deleteTagPattern = id => tagNamedAction(DELETE_PATTERN, { id });
 
-export const updateTagPattern = () => tagNamedAction(UPDATE_PATTERN);
-
 export const createDocumentPattern = () =>
   documentNamedAction(CREATE_PATTERN, { id: shortid.generate() });
 
 export const deleteDocumentPattern = id =>
   documentNamedAction(DELETE_PATTERN, { id });
 
-export const updateDocumentPattern = () => documentNamedAction(UPDATE_PATTERN);
+export const updatePattern = ({ id, description, pattern, errorMessage }) =>
+  tagNamedAction(UPDATE_PATTERN, {
+    id,
+    description,
+    pattern,
+    errorMessage
+  });

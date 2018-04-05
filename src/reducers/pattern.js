@@ -1,6 +1,12 @@
 import { combineReducers } from "redux";
-import { createReducer } from "./reducerUtils";
-import { CREATE_PATTERN, DELETE_PATTERN, UPDATE_PATTERN } from "../constants";
+import { createReducer, createNamedWrapperReducer } from "./reducerUtils";
+import {
+  CREATE_PATTERN,
+  DELETE_PATTERN,
+  UPDATE_PATTERN,
+  TAGS,
+  DOCUMENTS
+} from "../constants";
 
 const getActionId = action => action.meta.id;
 
@@ -53,28 +59,29 @@ const patternById = createReducer(
 
 // allIds slice reducer
 
-const addPatternId = (state, action) => {
+const addPatternIdToType = (state, action) => {
   const id = getActionId(action);
 
   return [id, ...state];
 };
 
-const removePatternId = (state, action) => {
+const removePatternIdFromType = (state, action) => {
   const id = getActionId(action);
 
   return state.filter(item => item !== id);
 };
 
-const allPatternIds = createReducer([], {
-  [CREATE_PATTERN]: addPatternId,
-  [DELETE_PATTERN]: removePatternId
+const allPatternTypeIds = createReducer([], {
+  [CREATE_PATTERN]: addPatternIdToType,
+  [DELETE_PATTERN]: removePatternIdFromType
 });
 
 // Exported reducer
 
 const patternReducer = combineReducers({
   byId: patternById,
-  allIds: allPatternIds
+  allTagIds: createNamedWrapperReducer(allPatternTypeIds, TAGS),
+  allDocumentIds: createNamedWrapperReducer(allPatternTypeIds, DOCUMENTS)
 });
 
 export default patternReducer;
