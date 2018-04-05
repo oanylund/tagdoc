@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import {
   Card,
   TextInput,
@@ -33,21 +34,64 @@ const PatternCard = Card.extend`
 const SelectableCard = withSelectableBackground()(PatternCard);
 
 class PatternInput extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onDescriptionChange = this.onDescriptionChange.bind(this);
+    this.onPatternChange = this.onPatternChange.bind(this);
+  }
+  onDescriptionChange(event) {
+    const { pattern, onInputChange } = this.props;
+
+    onInputChange({
+      description: event.target.value,
+      pattern
+    });
+  }
+  onPatternChange(event) {
+    const { description, onInputChange } = this.props;
+
+    onInputChange({
+      description,
+      pattern: event.target.value
+    });
+  }
   render() {
+    const { description, pattern, onDelete, onOpenInPlayground } = this.props;
     return (
       <SelectableCard>
         <TextInput
           label="Description"
           placeholder="Write description here..."
+          value={description}
+          onChange={this.onDescriptionChange}
         />
-        <TextInput label="Pattern" placeholder="Write pattern here..." />
+        <TextInput
+          label="Pattern"
+          placeholder="Write pattern here..."
+          value={pattern}
+          onChange={this.onPatternChange}
+        />
         <Menu>
-          <MenuBtn>Delete</MenuBtn>
-          <MenuBtn>Open in playground</MenuBtn>
+          <MenuBtn onClick={onDelete}>Delete</MenuBtn>
+          <MenuBtn onClick={onOpenInPlayground}>Open in playground</MenuBtn>
         </Menu>
       </SelectableCard>
     );
   }
 }
+
+PatternInput.propTypes = {
+  description: PropTypes.string.isRequired,
+  pattern: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  onOpenInPlayground: PropTypes.func
+};
+
+PatternInput.defaultValue = {
+  onDelete: () => {},
+  onOpenInPlayground: () => {}
+};
 
 export default PatternInput;
