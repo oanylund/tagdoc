@@ -39,6 +39,7 @@ class PatternInput extends Component {
 
     this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onPatternChange = this.onPatternChange.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
   }
   onDescriptionChange(event) {
     const { pattern, onInputChange } = this.props;
@@ -56,10 +57,29 @@ class PatternInput extends Component {
       pattern: event.target.value
     });
   }
+  handleCardClick(event) {
+    // Prevent bubbling. only click events by whitelisted nodes
+    if (event.target !== this.cardRef && event.target !== this.menuRef) return;
+
+    this.props.onCardClick({
+      selected: this.props.selected,
+      shiftClicked: event.shiftKey
+    });
+  }
   render() {
-    const { description, pattern, onDelete, onOpenInPlayground } = this.props;
+    const {
+      description,
+      pattern,
+      onDelete,
+      onOpenInPlayground,
+      selected
+    } = this.props;
     return (
-      <SelectableCard>
+      <SelectableCard
+        innerRef={ref => (this.cardRef = ref)}
+        onClick={this.handleCardClick}
+        selected={selected}
+      >
         <TextInput
           label="Description"
           placeholder="Write description here..."
@@ -72,7 +92,7 @@ class PatternInput extends Component {
           value={pattern}
           onChange={this.onPatternChange}
         />
-        <Menu>
+        <Menu innerRef={ref => (this.menuRef = ref)}>
           <MenuBtn onClick={onDelete}>Delete</MenuBtn>
           <MenuBtn onClick={onOpenInPlayground}>Open in playground</MenuBtn>
         </Menu>
@@ -86,12 +106,16 @@ PatternInput.propTypes = {
   pattern: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
-  onOpenInPlayground: PropTypes.func
+  onOpenInPlayground: PropTypes.func,
+  onCardClick: PropTypes.func,
+  selected: PropTypes.bool
 };
 
-PatternInput.defaultValue = {
+PatternInput.defaultProps = {
   onDelete: () => {},
-  onOpenInPlayground: () => {}
+  onOpenInPlayground: () => {},
+  onCardClick: () => {},
+  selected: false
 };
 
 export default PatternInput;
