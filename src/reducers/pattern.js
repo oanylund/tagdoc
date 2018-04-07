@@ -62,7 +62,7 @@ const patternById = createReducer(
 const addPatternIdToType = (state, action) => {
   const id = getActionId(action);
 
-  return [id, ...state];
+  return [...state, id];
 };
 
 const removePatternIdFromType = (state, action) => {
