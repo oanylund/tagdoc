@@ -7,7 +7,6 @@ import {
 
 import { action } from "./actionCreators";
 
-// Playground actions
 export const parseTestPattern = () => action(PARSE_TEST_PATTERN);
 
 export const onTestPatternChange = value =>
