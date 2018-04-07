@@ -25,7 +25,7 @@ export const copyTestListToClipboard = () =>
 
 export const emptyTestList = () => action(EMPTY_TEST_LIST);
 
-// Playground actions
+// Pattern actions
 const tagNamedAction = namedAction(TAGS);
 const documentNamedAction = namedAction(DOCUMENTS);
 
@@ -40,8 +40,14 @@ export const createDocumentPattern = () =>
 export const deleteDocumentPattern = id =>
   documentNamedAction(DELETE_PATTERN, { id });
 
-export const updatePattern = ({ id, description, pattern, errorMessage }) =>
-  tagNamedAction(UPDATE_PATTERN, {
+export const createNamedPattern = name =>
+  namedAction(name)(CREATE_PATTERN, { id: shortid.generate() });
+
+export const deleteNamedPattern = (name, id) =>
+  namedAction(name)(DELETE_PATTERN, { id });
+
+export const updatePattern = (id, { description, pattern, errorMessage }) =>
+  action(UPDATE_PATTERN, {
     id,
     description,
     pattern,
