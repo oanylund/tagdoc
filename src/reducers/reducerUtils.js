@@ -28,3 +28,5 @@ export const createReducer = (initialState, handlers) => (
     return state;
   }
 };
+
+export const getActionId = action => action.meta.id;

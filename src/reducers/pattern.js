@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
-import { createReducer, createNamedWrapperReducer } from "./reducerUtils";
+import {
+  createReducer,
+  createNamedWrapperReducer,
+  getActionId
+} from "./reducerUtils";
 import {
   CREATE_PATTERN,
   DELETE_PATTERN,
@@ -7,8 +11,6 @@ import {
   TAGS,
   DOCUMENTS
 } from "../constants";
-
-const getActionId = action => action.meta.id;
 
 // byId slice reducer
 
