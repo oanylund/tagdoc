@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { SubNavbar, SubNavItem } from "tagdoc-ui-components";
 import TagDocCreate from "./TagDoc_Create";
 
@@ -22,7 +22,8 @@ class TagDoc extends Component {
     return [
       this.renderSubNav(),
       <Route key={2} path="/tagdoc/create" component={TagDocCreate} />,
-      <Route key={3} path="/tagdoc/connect" component={Connect} />
+      <Route key={3} path="/tagdoc/connect" component={Connect} />,
+      <Redirect to="/tagdoc/create" />
     ];
   }
 }
