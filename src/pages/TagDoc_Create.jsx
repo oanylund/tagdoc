@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PatternInput from "../components/PatternInput";
 import styled from "styled-components";
-import { Title, Button } from "tagdoc-ui-components";
+import { Button } from "tagdoc-ui-components";
+
+import { TAGS, DOCUMENTS } from "../constants";
+import PatternContainer from "../containers/tagdoc/create/PatternContainer";
 
 const Container = styled.div`
   min-height: 100%;
@@ -29,11 +31,6 @@ const RightContent = styled.div`
   grid-area: right;
 `;
 
-const TagDocTitle = Title.extend`
-  margin-bottom: 15px;
-  padding-left: 10px;
-`;
-
 class TagDocCreate extends Component {
   render() {
     return (
@@ -44,14 +41,10 @@ class TagDocCreate extends Component {
           <Button btnSize="small">Documents</Button>
         </Header>
         <LeftContent>
-          <TagDocTitle>Tags</TagDocTitle>
-          <PatternInput />
-          <Button btnStyle="filled">+</Button>
+          <PatternContainer title="Tags" type={TAGS} />
         </LeftContent>
         <RightContent>
-          <TagDocTitle>Documents</TagDocTitle>
-          <PatternInput />
-          <Button btnStyle="filled">+</Button>
+          <PatternContainer title="Documents" type={DOCUMENTS} />
         </RightContent>
       </Container>
     );
