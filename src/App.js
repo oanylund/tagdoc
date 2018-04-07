@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import { ThemeProvider } from "tagdoc-ui-components";
@@ -22,10 +27,13 @@ class App extends Component {
           <ThemeProvider>
             <div>
               <Header />
-              <Route path="/tagdoc" component={TagDoc} />
-              <Route path="/partials" component={Partials} />
-              <Route path="/playground" component={Playground} />
-              <Route path="/export" component={Export} />
+              <Switch>
+                <Route path="/tagdoc" component={TagDoc} />
+                <Route path="/partials" component={Partials} />
+                <Route path="/playground" component={Playground} />
+                <Route path="/export" component={Export} />
+                <Redirect to="/tagdoc" from="/" exact />
+              </Switch>
               <Clipboard />
             </div>
           </ThemeProvider>
