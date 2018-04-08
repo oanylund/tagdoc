@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { Button } from "tagdoc-ui-components";
 
+import { resetTagDocSelection } from "../actions";
 import { TAGS, DOCUMENTS } from "../constants";
 import PatternContainer from "../containers/tagdoc/create/PatternContainer";
 
@@ -12,6 +14,7 @@ const Container = styled.div`
   grid-template-columns: 5% 1fr 1fr 5%;
   grid-template-rows: auto auto;
   grid-template-areas: "h h h h" "w left right e";
+  margin-bottom: 20px;
 `;
 
 const Header = styled.div`
@@ -32,10 +35,21 @@ const RightContent = styled.div`
 `;
 
 class TagDocCreate extends Component {
+  constructor(props) {
+    super(props);
+    this.resetSelection = this.resetSelection.bind(this);
+  }
+  stopEventPropagation(event) {
+    event.stopPropagation();
+  }
+  resetSelection() {
+    const { dispatch } = this.props;
+    dispatch(resetTagDocSelection);
+  }
   render() {
     return (
-      <Container>
-        <Header>
+      <Container onClick={this.resetSelection}>
+        <Header onClick={this.stopEventPropagation}>
           <span>Show:</span>
           <Button btnSize="small">Tags</Button>
           <Button btnSize="small">Documents</Button>
@@ -51,4 +65,4 @@ class TagDocCreate extends Component {
   }
 }
 
-export default TagDocCreate;
+export default connect()(TagDocCreate);

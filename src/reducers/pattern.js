@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { createSelectionReducer } from "./selection";
 import {
   createReducer,
   createNamedWrapperReducer,
@@ -9,7 +10,8 @@ import {
   DELETE_PATTERN,
   UPDATE_PATTERN,
   TAGS,
-  DOCUMENTS
+  DOCUMENTS,
+  RESET_TAGDOC_SELECTION
 } from "../constants";
 
 // byId slice reducer
@@ -78,12 +80,22 @@ const allPatternTypeIds = createReducer([], {
   [DELETE_PATTERN]: removePatternIdFromType
 });
 
+const selectionPatternParams = nameScope => ({
+  globalResetActionType: RESET_TAGDOC_SELECTION,
+  scopedResetActionTypes: [CREATE_PATTERN, DELETE_PATTERN],
+  actionNameScope: nameScope
+});
+
 // Exported reducer
 
 const patternReducer = combineReducers({
   byId: patternById,
   allTagIds: createNamedWrapperReducer(allPatternTypeIds, TAGS),
-  allDocumentIds: createNamedWrapperReducer(allPatternTypeIds, DOCUMENTS)
+  allDocumentIds: createNamedWrapperReducer(allPatternTypeIds, DOCUMENTS),
+  tagSelectionMeta: createSelectionReducer(selectionPatternParams(TAGS)),
+  documentSelectionMeta: createSelectionReducer(
+    selectionPatternParams(DOCUMENTS)
+  )
 });
 
 export default patternReducer;

@@ -17,7 +17,8 @@ class PatternContainer extends Component {
     super(props);
     this.onCreatePattern = this.onCreatePattern.bind(this);
   }
-  onCreatePattern() {
+  onCreatePattern(event) {
+    event.stopPropagation();
     const { dispatch, type } = this.props;
     dispatch(createNamedPattern(type));
   }

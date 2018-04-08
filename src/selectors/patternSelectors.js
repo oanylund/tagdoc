@@ -3,7 +3,31 @@ import { TAGS, DOCUMENTS } from "../constants";
 
 export const getPatterns = state => state.patterns.byId;
 
-export const getPatternById = (state, props) => state.patterns.byId[props.id];
+const getPatternObject = (state, props) => state.patterns.byId[props.id];
+
+const getPatternTypeSelection = (state, props) => {
+  switch (props.type) {
+    case TAGS:
+      return state.patterns.tagSelectionMeta;
+
+    case DOCUMENTS:
+      return state.patterns.documentSelectionMeta;
+
+    default:
+      return {};
+  }
+};
+
+export const getPatternById = createSelector(
+  [getPatternObject, getPatternTypeSelection],
+  (patternObject, selectionData) => ({
+    selected: selectionData.selectionIds.includes(patternObject.id),
+    prevIndex: selectionData.previousKey,
+    ...patternObject
+  })
+);
+
+export const makeGetPatternById = () => getPatternById;
 
 export const getPatternTypeIds = (state, props) => {
   switch (props.type) {

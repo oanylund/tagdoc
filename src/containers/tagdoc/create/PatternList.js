@@ -16,7 +16,15 @@ class PatternList extends Component {
   }
   renderList() {
     const { listOfIds, type } = this.props;
-    return listOfIds.map(id => <PatternItem key={id} id={id} type={type} />);
+    return listOfIds.map((id, i) => (
+      <PatternItem
+        key={id}
+        id={id}
+        type={type}
+        listOfIds={listOfIds}
+        index={i}
+      />
+    ));
   }
   render() {
     return this.renderList();

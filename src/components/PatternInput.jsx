@@ -25,7 +25,7 @@ const Menu = styled.div`
 
 const PatternCard = Card.extend`
   margin-bottom: 20px;
-
+  user-select: none;
   &:hover > ${Menu} {
     opacity: 1;
   }
@@ -58,13 +58,12 @@ class PatternInput extends Component {
     });
   }
   handleCardClick(event) {
+    event.stopPropagation();
+
     // Prevent bubbling. only click events by whitelisted nodes
     if (event.target !== this.cardRef && event.target !== this.menuRef) return;
 
-    this.props.onCardClick({
-      selected: this.props.selected,
-      shiftClicked: event.shiftKey
-    });
+    this.props.onCardClick(event.shiftKey);
   }
   render() {
     const {
