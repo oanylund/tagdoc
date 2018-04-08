@@ -10,3 +10,7 @@ export const DELETE_PATTERN = "DELETE_PATTERN";
 export const UPDATE_PATTERN = "UPDATE_PATTERN";
 export const TAGS = "TAGS";
 export const DOCUMENTS = "DOCUMENTS";
+
+// Selection constants
+export const ADD_TO_SELECTION = "ADD_TO_SELECTION";
+export const REMOVE_FROM_SELECTION = "REMOVE_FROM_SELECTION";
